@@ -35,7 +35,7 @@ class BinarySearchTree {
   }
 
   has(data) {
-    // return !!this.find(data);
+    
     return searchNode(this.treeRoot, data);
 
     function searchNode(node, data) {
@@ -47,7 +47,7 @@ class BinarySearchTree {
       }
       if (data < node.data) {
         return searchNode(node.left, data);
-      } else if (data > node.data) {
+      } else  {
         return searchNode(node.right, data);
       } 
     }
@@ -82,7 +82,7 @@ class BinarySearchTree {
       if (data < node.data) {
         node.left = removeNode(node.left, data);
         return node;
-      } else if (data > node.data) {
+      } else if (node.data < data) {
         node.right = removeNode(node.right, data);
         return node;
       } else {
@@ -102,7 +102,7 @@ class BinarySearchTree {
           minRight = minRight.left;
         }
         node.data = minRight.data;
-        node.right = removeNode(node.right, minRight.value);
+        node.right = removeNode(node.right, minRight.data);
         return node;
       }
     }
@@ -128,6 +128,29 @@ class BinarySearchTree {
       node = node.right;
     }
     return node.data;
+  }
+
+  rightTraverse(cb) {
+    doRight(this.treeRoot, cb);
+
+    function doRight(node, cb) {
+      if (node) {
+        doRight(node.right, cb);
+        cb(node.data);
+        doRight(node.left, cb);
+      }
+    }
+  }
+  leftTraverse(cb) {
+    doLeft(this.treeRoot, cb);
+
+    function doLeft(node, cb) {
+      if (node) {
+        doLeft(node.left, cb);
+        cb(node.data);
+        doLeft(node.right, cb);
+      }
+    }
   }
 }
 
