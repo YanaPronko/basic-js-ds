@@ -1,6 +1,6 @@
 const { NotImplementedError } = require('../extensions/index.js');
 
-// const { ListNode } = require('../extensions/list-node.js');
+const { ListNode } = require('../extensions/list-node.js');
 
 /**
  * Implement the Queue with a given interface via linked list (use ListNode extension above).
@@ -14,23 +14,48 @@ const { NotImplementedError } = require('../extensions/index.js');
  * queue.getUnderlyingList() // returns { value: 3, next: null }
  */
 class Queue {
-
-  getUnderlyingList() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  constructor() {
+    this.head = null;
+  /*   this.elements = new Map();
+    this.startIndex = 0;
+    this.lastIndex = 0; */
   }
 
-  enqueue(/* value */) {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+  getUnderlyingList() {
+    return this.head;
+    // return this.elements;
+  }
+
+  enqueue(value) {
+    if (!this.head) {
+      this.tail = new ListNode(value);
+      this.head = this.tail;
+      return;
+    }
+    this.tail.next = new ListNode(value);
+    this.tail = this.tail.next;
+   /*  this.elements.set(this.lastIndex, value);
+    this.lastIndex++; */
   }
 
   dequeue() {
-    throw new NotImplementedError('Not implemented');
-    // remove line with error and write your code here
+    /* if (this.startIndex > this.lastIndex) {
+      return;
+    }
+    const deletedItem = this.elements.get(this.startIndex);
+    this.elements.delete(deletedItem);
+    this.startIndex++;
+    return deletedItem; */
+  /*   if(!this.head) {
+    return null;
+    } */
+    this.deletedItem = this.head.value;
+    this.head = this.head.next;
+    return this.deletedItem;
   }
 }
 
 module.exports = {
   Queue
 };
+
